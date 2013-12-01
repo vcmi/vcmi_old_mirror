@@ -5,22 +5,22 @@ before_install:
     - getconf _NPROCESSORS_ONLN
 install: 
     - sudo mkdir -p /etc/apt/sources.list.d/
-    - sudo touch /etc/apt/sources.list.d/llvm.list
-    - sudo chmod a+rw /etc/apt/sources.list.d/llvm.list
-    - echo "deb http://llvm.org/apt/precise/ llvm-toolchain-precise main" > /etc/apt/sources.list.d/llvm.list
-    - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
+#    - sudo touch /etc/apt/sources.list.d/llvm.list
+#    - sudo chmod a+rw /etc/apt/sources.list.d/llvm.list
+#    - echo "deb http://llvm.org/apt/precise/ llvm-toolchain-precise main" > /etc/apt/sources.list.d/llvm.list
+#    - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
     - sudo add-apt-repository -y ppa:ubuntu-sdk-team/ppa
     - sudo add-apt-repository -y ppa:boost-latest/ppa
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
-    - sudo apt-get install libboost1.54-all-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-sound1.2-dev libsdl1.2-dev libavcodec-dev libavformat-dev libavdevice-dev libavutil-dev libswscale-dev libpostproc-dev libsdl-ttf2.0-dev pastebinit
-    - if [ "$CXX" = "clang++" ]; then sudo apt-get install clang-3.4; fi
-    - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq qtbase5-dev qtdeclarative5-dev qt5-default qt5-qmake qtbase5-dev-tools qtmultimedia5-dev g++-4.8; fi
+    - sudo apt-get install libboost1.54-all-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-net1.2-dev libsdl-sound1.2-dev libsdl1.2-dev libavcodec-dev libavformat-dev libavdevice-dev libavutil-dev libswscale-dev libpostproc-dev libsdl-ttf2.0-dev pastebinit iwyu
+#    - if [ "$CXX" = "clang++" ]; then sudo apt-get install clang-3.4; fi
+#    - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq qtbase5-dev qtdeclarative5-dev qt5-default qt5-qmake qtbase5-dev-tools qtmultimedia5-dev g++-4.8; fi
 before_script:
     - export ENABLE_QT_PARTS=$(if [ "$CXX" = "g++" ]; then echo ON; else echo OFF ; fi)
     - echo $ENABLE_QT_PARTS
     - if [ "$CXX" = "clang++" ]; then export CXX="/usr/bin/clang++" CC="/usr/bin/clang"; fi
-    - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+#    - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
     - which $CXX
     - $CXX --version
 script:
@@ -29,5 +29,5 @@ script:
 after_script:
     - pastebinit compile_commands.json
 compiler:
+    - clang-3.3
     - clang
-    - gcc-4.8
