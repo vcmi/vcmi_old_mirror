@@ -60,9 +60,6 @@ static_assert(sizeof(bool) == 1, "Bool needs to be 1 byte in size.");
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 #define _USE_MATH_DEFINES
 
-#include <cstdio>
-#include <stdio.h>
-
 #include <algorithm>
 #include <array>
 #include <cassert>
